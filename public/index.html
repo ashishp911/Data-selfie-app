@@ -45,6 +45,18 @@
             const tiles = L.tileLayer(tilesURL, {attribution});
             tiles.addTo(map);
             const marker = L.marker([lat, lon]).addTo(map);
+
+            // setting up fetch
+            const data = {lat, lon};
+            const options = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                // sending data as JSON string
+                body: JSON.stringify(data), 
+            };
+            fetch('/api', options);
         }
             
         document.getElementById('geolocate').addEventListener('click', event => {
