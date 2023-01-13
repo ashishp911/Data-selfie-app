@@ -31,7 +31,7 @@
     <div id="map"></div>
     <script>
         // check if geolocation is available
-        function success(pos){
+        async function success(pos){
             // console.log(pos.coords.latitude);
             // console.log(pos.coords.longitude);
             lat = pos.coords.latitude;
@@ -44,8 +44,8 @@
             const tilesURL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
             const tiles = L.tileLayer(tilesURL, {attribution});
             tiles.addTo(map);
-            const marker = L.marker([lat, lon]).addTo(map);
-
+            const marker = L.marker([lat, lon]).addTo(map);   
+            
             // setting up fetch
             const data = {lat, lon};
             const options = {
@@ -56,10 +56,12 @@
                 // sending data as JSON string
                 body: JSON.stringify(data), 
             };
-            fetch('/api', options);
+            const response = await fetch('/api', options);
+            const json = await response.json();
+            console.log(json)
         }
             
-        document.getElementById('geolocate').addEventListener('click', event => {
+        document.getElementById('geolocate').addEventListener('click', async event => {
             if ('geolocation' in navigator){
                 console.log('geolocation available');
                 navigator.geolocation.getCurrentPosition(success);
