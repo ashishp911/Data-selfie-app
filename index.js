@@ -31,3 +31,15 @@ app.post('/api', (request, response) =>{
         longitude : data.lon,
     })
 });
+
+app.get('/api', (request, response) => {
+    // console.log(response);
+    database.find({}, (err, data) => {
+        if (err){
+            console.log("Error occured ");
+            response.end();
+            return
+        }
+        response.json(data);
+    });
+});
