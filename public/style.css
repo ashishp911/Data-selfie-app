@@ -1,0 +1,43 @@
+#map {
+    height: 600px;
+}
+
+P{
+    padding: 10px;
+    background-color: #000000;
+    color: chartreuse;
+    font-size: larger;
+}
+body {
+    background-color: rgb(148, 192, 201);
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(201, 61, 214);
+}
+/* div#name {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    color : rgb(8, 90, 8),
+}
+
+div#logsname {
+    font-size: 24px;
+    /* font-weight: bold; 
+    text-align: left;
+    color: aliceblue,
+}
+
+div#geo {
+    font-size: 24px;
+    color: rgb(8, 90, 8);
+}
+div#date {
+    font-size: 24px;
+    color: rgb(8, 90, 8);
+    text-align: left;
+} 
+
+*/
