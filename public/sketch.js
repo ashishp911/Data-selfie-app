@@ -9,8 +9,8 @@ function setup(){
     async function success(pos){
         // console.log(pos.coords.latitude);
         // console.log(pos.coords.longitude);
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
+        const lat = pos.coords.latitude.toFixed(2);
+        const lon = pos.coords.longitude.toFixed(2);
         const username = document.getElementById('name').value;
         document.getElementById('lat').textContent = lat
         document.getElementById('lon').textContent = lon
