@@ -20,16 +20,11 @@ app.post('/api', (request, response) =>{
     const data = request.body;
     const timestamp = Date.now();
     data.timestamp = timestamp;
+    // inserting to database
     database.insert(data);
 
     // sending response to client
-    response.json({
-        status : 'success',
-        timestamp : timestamp,
-        Name : data.username,
-        latitude : data.lat,
-        longitude : data.lon,
-    })
+    response.json(data);
 });
 
 app.get('/api', (request, response) => {

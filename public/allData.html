@@ -7,11 +7,15 @@
     <title>Document</title>
     <style>
         body {background-color: rgb(148, 192, 201);}
-        h1   {color: rgb(201, 61, 214);}
+        h1   {
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(201, 61, 214);
+        }
         div#name {
         font-size: 24px;
         font-weight: bold;
-        text-align: left
+        text-align: left;
+        color : rgb(8, 90, 8),
         }
 
         div#geo {
@@ -20,8 +24,8 @@
         }
 
         div#date {
-        font-size: 18px;
-        color: rgb(207, 21, 92);
+        font-size: 24px;
+        color: rgb(8, 90, 8);
         text-align: left;
         }
 
@@ -30,6 +34,7 @@
 <body>
     <h1>Data Selfie App</h1>
     <p>This page is used to retrive all the items from the database. We will used app.get for this. </p>
+    <div><a href="index.html">Entry</a> | <a href="/">List</a></div>
 
     <script>
         getData();
@@ -47,11 +52,15 @@
                 date.setAttribute("id", "date");
                 const dateString = new Date(item.timestamp).toLocaleString();
                 const br = document.createElement("br");
+                const image = document.createElement('img');
+
+
 
                 name.textContent = `Name : ${item.username}`;
                 geo.textContent = `Latitude : ${item.lat}, Longitude : ${item.lon}`;
                 date.textContent = dateString;
-                root.append(name, geo, date, br);
+                image.src = item.image64;
+                root.append(name, geo, date, image, br);
                 document.body.append(root);
             }
             console.log(data);

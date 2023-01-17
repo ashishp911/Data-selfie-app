@@ -14,6 +14,9 @@
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
         crossorigin="">
     </script>
+        
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.min.js"></script>
+
     <style>
         #map {
           height: 600px;
@@ -22,7 +25,7 @@
 </head>
 <body>
     <h1>Data Selfie App</h1>
-    <div><a href="/">Hello</a> | <a href="goodbye.html">Goodbye</a></div>
+    <div><a href="/">Entry</a> | <a href="allData.html">List</a></div>
     <p>
         latitude : <span id="lat"></span> &deg; <br>
         longitude : <span id="lon"></span> &deg;
@@ -30,67 +33,76 @@
     
     <label for="Name">Enter your name:</label>
     <input id="name" value="Ashish" />
-    <!-- <button type="submit">submit</button> -->
     <button id="geolocate">Get my coordinates</button>
-    <button id="getMap">Show map</button>
-    <div id="map"></div>
+    <!-- <button id="getMap">Show map</button>
+    <div id="map"></div> -->
+    
     <script>
-        // let name;
-        // document.getElementById('submit').addEventListener('click', event => {
-        //     name = document.getElementById('name').value;
-        // });
-        
-        // check if geolocation is available
-        async function success(pos){
-            // console.log(pos.coords.latitude);
-            // console.log(pos.coords.longitude);
-            const lat = pos.coords.latitude;
-            const lon = pos.coords.longitude;
-            const username = document.getElementById('name').value;
-            document.getElementById('lat').textContent = lat
-            document.getElementById('lon').textContent = lon
-            // setting up fetch
-            const data = {username, lat, lon};
-            const options = {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                // sending data as JSON string
-                body: JSON.stringify(data), 
-            };
-            const response = await fetch('/api', options);
-            const json = await response.json();
-            console.log(json)
-        }
-            
-        document.getElementById('geolocate').addEventListener('click', async event => {
-            if ('geolocation' in navigator){
-                console.log('geolocation available');
-                navigator.geolocation.getCurrentPosition(success);
-            }
-            else{
-                console.log('geolocation not available');
-            }
-        });
 
-        async function getMyMap(){
-            // Leaflet js code below
-            navigator.geolocation.getCurrentPosition((position) => {
-            let lati = position.coords.latitude;
-            let long = position.coords.longitude;
-            const map = L.map('map').setView([0,0], 2);
-            const attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-            const tilesURL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-            const tiles = L.tileLayer(tilesURL, {attribution});
-            tiles.addTo(map);
-            const marker = L.marker([lati, long]).addTo(map);   
+        function setup(){
+
+            // Image capturing
+            noCanvas();
+            const video = createCapture(VIDEO);
+            video.size(320,240);
+
+            // check if geolocation is available
+            async function success(pos){
+                // console.log(pos.coords.latitude);
+                // console.log(pos.coords.longitude);
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                const username = document.getElementById('name').value;
+                document.getElementById('lat').textContent = lat
+                document.getElementById('lon').textContent = lon
+                video.loadPixels();
+                const image64 = video.canvas.toDataURL();
+                 
+                // setting up fetch
+                const data = {username, lat, lon, image64};
+                const options = {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    // sending data as JSON string
+                    body: JSON.stringify(data), 
+                };
+                const response = await fetch('/api', options);
+                const json = await response.json();
+                console.log(json)
+            }
+                
+            document.getElementById('geolocate').addEventListener('click', async event => {
+                if ('geolocation' in navigator){
+                    console.log('geolocation available');
+                    navigator.geolocation.getCurrentPosition(success);
+                }
+                else{
+                    console.log('geolocation not available');
+                }
             });
-        };
+
+            
+            // async function getMyMap(){
+            //     // Leaflet js code below
+            //     navigator.geolocation.getCurrentPosition((position) => {
+            //     let lati = position.coords.latitude;
+            //     let long = position.coords.longitude;
+            //     const map = L.map('map').setView([0,0], 2);
+            //     const attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+            //     const tilesURL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+            //     const tiles = L.tileLayer(tilesURL, {attribution});
+            //     tiles.addTo(map);
+            //     const marker = L.marker([lati, long]).addTo(map);   
+            //     });
+            // };
+            
+            // document.getElementById('getMap').addEventListener('click', async event => {
+            //     await getMyMap();
+            // });
         
-        document.getElementById('getMap').addEventListener('click', async event => {
-            await getMyMap();
-        });
+        }
     </script>
 </body>
 </html>
