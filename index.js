@@ -38,3 +38,15 @@ app.get('/api', (request, response) => {
         response.json(data);
     });
 });
+
+// app.get('/clearData', (request, response) => {
+//     // console.log(response);
+//     database.remove({}, (err, numRemoved) => {
+//         if (err){
+//             console.log("Error occured ");
+//             response.end();
+//             return
+//         }
+//         console.log(`Number of docs removed = ${numRemoved}`)
+//     });
+// });

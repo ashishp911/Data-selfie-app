@@ -1,8 +1,10 @@
 getData();
-async function getData(){
+async function getData()
+{
     const response = await fetch('/api');
     const data = await response.json();
-    for (item of data){
+    for (item of data)
+    {
 
         const root = document.createElement('p');
         const name = document.createElement('div');
@@ -28,3 +30,19 @@ async function getData(){
     }
     console.log(data);
 }
+
+// document.getElementById('submit').addEventListener('click', async event => {
+//     clearData();
+// });
+
+
+// async function clearData()
+// {
+//     const response = await fetch('/api');
+//     const data = await response.json();
+//     console.log("here")
+//     for (item of data){
+//         const res = await fetch('/clearData'); 
+//     }
+
+// }
