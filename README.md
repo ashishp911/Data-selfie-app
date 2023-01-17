@@ -4,6 +4,7 @@
 
 ## How to run
 To go root directory and run 
-node index.js 
+1. node index.js 
+2. Go to your browser and go to localhost:3000
 
-Go to your browser and go to localhost:3000
+
