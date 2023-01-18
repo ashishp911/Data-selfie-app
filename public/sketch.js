@@ -16,7 +16,7 @@ function setup(){
         document.getElementById('lon').textContent = lon
         video.loadPixels();
         const image64 = video.canvas.toDataURL();
-         
+
         // setting up fetch
         const data = {username, lat, lon, image64};
         const options = {
